@@ -232,7 +232,7 @@ class Xpressions
     }
 
     /**
-     * Create a group of expressions.
+     * Create a group of expressions, or append an open parenthesis.
      *
      * @param  \Callable|null $callback
      * @return $this
@@ -253,7 +253,7 @@ class Xpressions
     }
 
     /**
-     * End an opened group of expressions.
+     * Pppend an close parenthesis.
      *
      * @return $this
      */
