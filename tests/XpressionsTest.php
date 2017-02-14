@@ -40,9 +40,9 @@ class XpressionsTest extends TestCase
     }
 
     /** @test */
-    public function it_not_match_a_string()
+    public function it_non_match_a_string()
     {
-        $regex = Xpressions::match()->exact('foo')->not('bar')->exact('baz');
+        $regex = Xpressions::match()->exact('foo')->non('bar')->exact('baz');
 
         $this->assertTrue($regex->test('foobaz'));
         $this->assertFalse($regex->test('foobarbaz'));
@@ -59,9 +59,9 @@ class XpressionsTest extends TestCase
     }
 
     /** @test */
-    public function it_not_match_a_word()
+    public function it_non_match_a_word()
     {
-        $regex = Xpressions::match()->notWord();
+        $regex = Xpressions::match()->nonWord();
 
         $this->assertTrue($regex->test('!@#$%'));
         $this->assertFalse($regex->test('foo'));
@@ -77,9 +77,9 @@ class XpressionsTest extends TestCase
     }
 
     /** @test */
-    public function it_not_match_a_digit()
+    public function it_non_match_a_digit()
     {
-        $regex = Xpressions::match()->notDigit();
+        $regex = Xpressions::match()->nonDigit();
 
         $this->assertTrue($regex->test('foo'));
         $this->assertFalse($regex->test('123456'));
@@ -95,9 +95,9 @@ class XpressionsTest extends TestCase
     }
 
     /** @test */
-    public function it_not_match_a_space()
+    public function it_non_match_a_space()
     {
-        $regex = Xpressions::match()->notSpace();
+        $regex = Xpressions::match()->nonSpace();
 
         $this->assertTrue($regex->test('foo'));
         $this->assertFalse($regex->test(' '));

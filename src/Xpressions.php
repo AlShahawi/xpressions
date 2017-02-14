@@ -4,6 +4,7 @@ class Xpressions
 {
     /**
      * Regex Expression.
+     *
      * @var string
      */
     protected $expression;
@@ -78,7 +79,7 @@ class Xpressions
      * @param  string $value
      * @return $this
      */
-    public function not($value)
+    public function non($value)
     {
         $value = $this->escape($value);
 
@@ -104,7 +105,7 @@ class Xpressions
      *
      * @return $this
      */
-    public function notWord()
+    public function nonWord()
     {
         $this->append('\W');
 
@@ -128,7 +129,7 @@ class Xpressions
      *
      * @return $this
      */
-    public function notDigit()
+    public function nonDigit()
     {
         $this->append('\D');
 
@@ -152,7 +153,7 @@ class Xpressions
      *
      * @return $this
      */
-    public function notSpace()
+    public function nonSpace()
     {
         $this->append('\S');
 
