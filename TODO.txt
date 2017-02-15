@@ -1,0 +1,16 @@
+* rename 'not' to 'non'.
+- support for named groups.
+- add any method.
+- make this method accept group calls
+    - maybe
+    - non
+    - or
+
+- refactor this methods using qualifiers low level method to avoid repetition
+    - oneOrMore
+    - zeroOrMore
+    - repeat
+
+- support for exception handling.
+- support for arabic languages.
+- support for multiline.
