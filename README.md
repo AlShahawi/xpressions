@@ -1,4 +1,5 @@
-# Xpressions
+Xpressions
+====
 A fluent PHP API for regular expressions.
 
 ## Installation

@@ -20,7 +20,7 @@ class Xpressions
     }
 
     /**
-     * Match a line start.
+     * Matches a line start.
      *
      * @return $this
      */
@@ -32,7 +32,7 @@ class Xpressions
     }
 
     /**
-     * Match a line end.
+     * Matches a line end.
      *
      * @return $this
      */
@@ -44,9 +44,9 @@ class Xpressions
     }
 
     /**
-     * Match a given string.
+     * Matches a given string.
      *
-     * @param  string $value
+     * @param  string|\Callable $value
      * @return $this
      */
     public function find($value)
@@ -55,7 +55,7 @@ class Xpressions
     }
 
     /**
-     * Match a given string.
+     * Matches a given string.
      *
      * @param  string|\Callable $value
      * @return $this
@@ -74,7 +74,7 @@ class Xpressions
     }
 
     /**
-     * Match an optional given string.
+     * Matches an optional given string.
      *
      * @param  string|\Callable $value
      * @return $this
@@ -93,7 +93,7 @@ class Xpressions
     }
 
     /**
-     * Match a non given string.
+     * Matches a non given string.
      *
      * @param  string $value
      * @return $this
@@ -108,7 +108,8 @@ class Xpressions
     }
 
     /**
-     * Match a word.
+     * Matches any word character (alphanumeric & underscore).
+     * Only matches low-ascii characters (no accented or non-roman characters).
      *
      * @return $this
      */
@@ -120,7 +121,7 @@ class Xpressions
     }
 
     /**
-     * Match a non word.
+     * Matches any character that is not a word character (alphanumeric & underscore).
      *
      * @return $this
      */
@@ -132,7 +133,7 @@ class Xpressions
     }
 
     /**
-     * Match a digit.
+     * Matches a digit.
      *
      * @return $this
      */
@@ -144,7 +145,7 @@ class Xpressions
     }
 
     /**
-     * Match a non digit.
+     * Matches a non digit.
      *
      * @return $this
      */
@@ -156,7 +157,7 @@ class Xpressions
     }
 
     /**
-     * Match a space.
+     * Matches a space.
      *
      * @return $this
      */
@@ -168,7 +169,7 @@ class Xpressions
     }
 
     /**
-     * Match a non space.
+     * Matches a non space.
      *
      * @return $this
      */
@@ -224,7 +225,7 @@ class Xpressions
     }
 
     /**
-     * Match the last OR group of expression(s) one or more times.
+     * Matches the last OR group of expression(s) one or more times.
      *
      * @param  \Callable $callback
      * @return $this
@@ -235,7 +236,7 @@ class Xpressions
     }
 
     /**
-     * Match the last OR group of expression(s) zero or more times.
+     * Matches the last OR group of expression(s) zero or more times.
      *
      * @param  \Callable $callback
      * @return $this
