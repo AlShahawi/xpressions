@@ -3,7 +3,7 @@
 - support for named groups.
 - make this method accept group calls
     * maybe
-    - or
+    * or
     - any
 
 - refactor this methods using qualifiers low level method to avoid repetition
