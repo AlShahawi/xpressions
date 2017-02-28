@@ -139,6 +139,38 @@ class XpressionsTest extends TestCase
     }
 
     /** @test */
+    public function it_chooses_between_expressions_using_or_and_accepts_callback()
+    {
+        $regex = Xpressions::match()
+            // match an email address or a url.
+            ->exact('contact me via: ')
+                ->group(function($xpr) {
+                    $xpr->oneOrMore(function($xpr) { $xpr->word(); })
+                        ->exact('@')
+                        ->oneOrMore(function($xpr) {
+                            $xpr->maybe('.')
+                                ->word()
+                                ->oneOrMore();
+                        })->word();
+                })
+                ->or(function($xpr) {
+                    $xpr->any('http://', 'https://')
+                        ->word()
+                        ->oneOrMore()
+                        ->group(function($xpr) {
+                            $xpr->exact('.')
+                                ->word()
+                                ->oneOrMore();
+                        })->oneOrMore();
+                });
+
+        $this->assertTrue($regex->test('contact me via: http://example.com'));
+        $this->assertTrue($regex->test('contact me via: http://example.com'));
+        $this->assertTrue($regex->test('contact me via: john@example.com'));
+        $this->assertFalse($regex->test('contact me via: other platform'));
+    }
+
+    /** @test */
     public function it_make_a_group_of_matchers()
     {
         $regex = Xpressions::match()->exact('my name is: ')->group(function($expression) {

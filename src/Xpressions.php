@@ -194,19 +194,26 @@ class Xpressions
 
         return $this;
     }
+
     /**
      * Matches the expression before of after this expression.
      *
-     * @param  string $value an optional value after the or expression.
+     * @param  string|Callback $value an optional value/group after the or expression.
      * @return $this
      */
     public function or($value = null)
     {
         $this->append('|');
 
+        if (is_callable($value)) {
+
+            $this->append($this->groupCallbackExpressions($value));
+
+            return $this;
+        }
+
         if($value) {
-            $value = $this->escape($value);
-            $this->find($value);
+            $this->exact($value);
         }
 
         return $this;
