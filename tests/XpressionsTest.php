@@ -31,7 +31,7 @@ class XpressionsTest extends TestCase
     }
 
     /** @test */
-    public function it_match_a_optional_string()
+    public function it_match_an_optional_string()
     {
         $regex = Xpressions::match()->exact('foo')->maybe('bar')->exact('baz');
 
@@ -39,7 +39,11 @@ class XpressionsTest extends TestCase
         $this->assertFalse($regex->test('foobar'));
         $this->assertTrue($regex->test('foobarbaz'));
         $this->assertTrue($regex->test('foobaz'));
+    }
 
+    /** @test */
+    public function it_match_an_optional_group()
+    {
         $regex = Xpressions::match()
             ->exact('my optional email is:')
             ->maybe(function($xpr) {
