@@ -72,6 +72,8 @@ $matcher = Xpressions::match()
         $xpr->word()->or('.');
     })
     ->exact('@')
+    ->word()
+    ->oneOrMore()
     ->oneOrMore(function($xpr) {
         $xpr->maybe('.')
             ->word();
