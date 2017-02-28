@@ -203,24 +203,6 @@ class XpressionsTest extends TestCase
     public function it_match_an_email_address()
     {
         $regex = Xpressions::match()
-            ->oneOrMore(function($xpr) { $xpr->word(); })
-            ->exact('@')
-            ->oneOrMore(function($xpr) {
-                $xpr->maybe('.')
-                    ->word();
-            })->word();
-
-        $this->assertTrue($regex->test('foo@bar.baz'));
-        $this->assertTrue($regex->test('foo@bar.baz.co'));
-
-        $this->assertFalse($regex->test('fooxbar.baz.co'));
-        $this->assertFalse($regex->test('fooxbar.baz.co'));
-    }
-
-    /** @test */
-    public function it_match_an_email_address_without_callback()
-    {
-        $regex = Xpressions::match()
             ->begin() // match a line start
             ->oneOrMore(function($xpr) {
                 $xpr->word()->or('.');
