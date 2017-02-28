@@ -171,9 +171,11 @@ class XpressionsTest extends TestCase
     /** @test */
     public function it_make_a_group_of_matchers()
     {
-        $regex = Xpressions::match()->exact('my name is: ')->group(function($expression) {
-            $expression->exact('foo')->or()->exact('bar');
-        });
+        $regex = Xpressions::match()
+            ->exact('my name is: ')
+            ->group(function($expression) {
+                $expression->exact('foo')->or()->exact('bar');
+            });
 
         $this->assertTrue($regex->test('my name is: foo'));
         $this->assertTrue($regex->test('my name is: bar'));
