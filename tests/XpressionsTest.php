@@ -181,6 +181,29 @@ class XpressionsTest extends TestCase
     }
 
     /** @test */
+    public function it_match_any_of_words()
+    {
+        $regex = Xpressions::match()
+            ->any('foo', 'bar', 'baz');
+
+        $this->assertTrue($regex->test('foo'));
+        $this->assertTrue($regex->test('bar'));
+        $this->assertTrue($regex->test('baz'));
+        $this->assertTrue($regex->test('my name is baz'));
+        $this->assertFalse($regex->test('john'));
+
+        $regex = Xpressions::match()
+            ->exact('my name is: ')
+            ->any('foo', 'bar', 'baz');
+
+        $this->assertTrue($regex->test('my name is: foo'));
+        $this->assertTrue($regex->test('my name is: bar'));
+        $this->assertTrue($regex->test('my name is: baz'));
+        $this->assertFalse($regex->test('foo'));
+        $this->assertFalse($regex->test('my name is: john'));
+    }
+
+    /** @test */
     public function it_gets_expression_without_delimiters()
     {
         $regex = Xpressions::match()

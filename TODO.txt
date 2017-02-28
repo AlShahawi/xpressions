@@ -1,6 +1,6 @@
 * rename 'not' to 'non'.
+* add any method.
 - support for named groups.
-- add any method.
 - make this method accept group calls
     - maybe
     - non

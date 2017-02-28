@@ -49,6 +49,17 @@ class Xpressions
      * @param  string $value
      * @return $this
      */
+    public function find($value)
+    {
+        return $this->exact($value);
+    }
+
+    /**
+     * Match a given string.
+     *
+     * @param  string $value
+     * @return $this
+     */
     public function exact($value)
     {
         $value = $this->escape($value);
@@ -160,6 +171,25 @@ class Xpressions
         return $this;
     }
 
+    /**
+     * Matches any of the given values.
+     *
+     * @param  string $values
+     * @return $this
+     */
+    public function any(...$values)
+    {
+        if ( ! count($values))
+            return $this;
+
+        $this->exact(array_shift($values));
+
+        foreach ($values as $value) {
+            $this->or($value);
+        }
+
+        return $this;
+    }
     /**
      * Matches the expression before of after this expression.
      *
