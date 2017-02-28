@@ -2,7 +2,7 @@
 * add any method.
 - support for named groups.
 - make this method accept group calls
-    - maybe
+    * maybe
     - non
     - or
 

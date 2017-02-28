@@ -33,10 +33,30 @@ class XpressionsTest extends TestCase
     /** @test */
     public function it_match_a_optional_string()
     {
-        $regex = Xpressions::match()->exact('foo')->maybe('bar');
+        $regex = Xpressions::match()->exact('foo')->maybe('bar')->exact('baz');
 
-        $this->assertTrue($regex->test('foo'));
-        $this->assertTrue($regex->test('foobar'));
+        $this->assertFalse($regex->test('foo'));
+        $this->assertFalse($regex->test('foobar'));
+        $this->assertTrue($regex->test('foobarbaz'));
+        $this->assertTrue($regex->test('foobaz'));
+
+        $regex = Xpressions::match()
+            ->exact('my optional email is:')
+            ->maybe(function($xpr) {
+                $xpr->space()
+                    ->word()
+                    ->oneOrMore()
+                    ->exact('@')
+                    ->oneOrMore(function($xpr) {
+                        $xpr->exact('.')
+                            ->word()
+                            ->oneOrMore();
+                    });
+            });
+
+        $this->assertTrue($regex->test('my optional email is: john@example.com'));
+        $this->assertTrue($regex->test('my optional email is:'));
+        $this->assertFalse($regex->test(''));
     }
 
     /** @test */
@@ -151,7 +171,7 @@ class XpressionsTest extends TestCase
             ->exact('@')
             ->oneOrMore(function($xpr) {
                 $xpr->maybe('.')
-                ->word();
+                    ->word();
             })->word();
 
         $this->assertTrue($regex->test('foo@bar.baz'));
@@ -170,7 +190,7 @@ class XpressionsTest extends TestCase
             ->exact('@')
             ->oneOrMore(function($xpr) {
                 $xpr->maybe('.')
-                ->word();
+                    ->word();
             })->word();
 
         $this->assertTrue($regex->test('foo@bar.baz'));

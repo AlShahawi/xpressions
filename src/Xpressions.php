@@ -72,13 +72,17 @@ class Xpressions
     /**
      * Match an optional given string.
      *
-     * @param  string $value
+     * @param  string|Callable $value
      * @return $this
      */
     public function maybe($value)
     {
-        $value = $this->escape($value);
+        if (is_callable($value)) {
+            $this->append($this->groupCallbackExpressions($value , '(?:', ')?'));
+            return $this;
+        }
 
+        $value = $this->escape($value);
         $this->append('(?:' . $value . ')?');
 
         return $this;
@@ -271,16 +275,29 @@ class Xpressions
     public function group(Callable $callback = null)
     {
         if ($callback) {
-            $regex = $this->match();
-            $callback($regex);
-            $this->append('(' . $regex->withoutDelimiters() . ')');
-
+            $this->append($this->groupCallbackExpressions($callback));
             return $this;
         }
 
         $this->append('(');
 
         return $this;
+    }
+
+    /**
+     * Wrap a callback expressions.
+     *
+     * @param  Callable $callback
+     * @param  string   $open
+     * @param  string   $close
+     * @return string
+     */
+    protected function groupCallbackExpressions(Callable $callback, $open = '(', $close = ')')
+    {
+        $regex = $this->match();
+        $callback($regex);
+
+        return $open . $regex->withoutDelimiters() . $close;
     }
 
     /**
