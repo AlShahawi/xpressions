@@ -339,7 +339,7 @@ class Xpressions
      */
     public function escape($value)
     {
-        return preg_quote($value);
+        return preg_quote($value, '/');
     }
 
     /**
