@@ -5,7 +5,7 @@
     * or
     * any
 
-* refactor this methods using qualifiers low level method to avoid repetition
+* refactor this methods using quantifiers low level method to avoid repetition
     - oneOrMore
     - zeroOrMore
     - repeat
