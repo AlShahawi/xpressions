@@ -57,13 +57,17 @@ class Xpressions
     /**
      * Match a given string.
      *
-     * @param  string $value
+     * @param  string|Callable $value
      * @return $this
      */
     public function exact($value)
     {
-        $value = $this->escape($value);
+        if (is_callable($value)) {
+            $this->append($this->groupCallbackExpressions($value));
+            return $this;
+        }
 
+        $value = $this->escape($value);
         $this->append($value);
 
         return $this;

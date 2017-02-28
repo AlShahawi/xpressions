@@ -1,11 +1,11 @@
 * rename 'not' to 'non'.
 * add any method.
-- support for named groups.
-- make this method accept group calls
+* make this method accept group calls
     * maybe
     * or
-    - any
+    * any
 
+- support for named groups.
 - refactor this methods using qualifiers low level method to avoid repetition
     - oneOrMore
     - zeroOrMore

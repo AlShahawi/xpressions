@@ -142,7 +142,7 @@ class XpressionsTest extends TestCase
     public function it_chooses_between_expressions_using_or_and_accepts_callback()
     {
         $regex = Xpressions::match()
-            // match an email address or a url.
+            // match an email address or a domain.
             ->exact('contact me via: ')
                 ->group(function($xpr) {
                     $xpr->oneOrMore(function($xpr) { $xpr->word(); })
@@ -154,8 +154,7 @@ class XpressionsTest extends TestCase
                         })->word();
                 })
                 ->or(function($xpr) {
-                    $xpr->any('http://', 'https://')
-                        ->word()
+                    $xpr->word()
                         ->oneOrMore()
                         ->group(function($xpr) {
                             $xpr->exact('.')
@@ -164,8 +163,7 @@ class XpressionsTest extends TestCase
                         })->oneOrMore();
                 });
 
-        $this->assertTrue($regex->test('contact me via: http://example.com'));
-        $this->assertTrue($regex->test('contact me via: http://example.com'));
+        $this->assertTrue($regex->test('contact me via: example.com'));
         $this->assertTrue($regex->test('contact me via: john@example.com'));
         $this->assertFalse($regex->test('contact me via: other platform'));
     }
@@ -257,6 +255,35 @@ class XpressionsTest extends TestCase
         $this->assertTrue($regex->test('my name is: baz'));
         $this->assertFalse($regex->test('foo'));
         $this->assertFalse($regex->test('my name is: john'));
+    }
+
+    /** @test */
+    public function it_match_any_of_groups()
+    {
+        // match an email address or domain
+        $regex = Xpressions::match()
+            ->any(function($xpr) {
+                $xpr->oneOrMore(function($xpr) { $xpr->word(); })
+                    ->exact('@')
+                    ->oneOrMore(function($xpr) {
+                        $xpr->maybe('.')
+                            ->word()
+                            ->oneOrMore();
+                    })->word();
+            }, function($xpr) {
+                $xpr->word()
+                    ->oneOrMore()
+                    ->group(function($xpr) {
+                        $xpr->exact('.')
+                            ->word()
+                            ->oneOrMore();
+                    })->oneOrMore();
+            }, 'foo');
+
+        $this->assertTrue($regex->test('example.com'));
+        $this->assertTrue($regex->test('me@example.com'));
+        $this->assertTrue($regex->test('foo'));
+        $this->assertFalse($regex->test('bar'));
     }
 
     /** @test */
