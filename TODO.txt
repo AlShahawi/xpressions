@@ -5,12 +5,12 @@
     * or
     * any
 
-- support for named groups.
-- refactor this methods using qualifiers low level method to avoid repetition
+* refactor this methods using qualifiers low level method to avoid repetition
     - oneOrMore
     - zeroOrMore
     - repeat
 
+- support for named groups.
 - support for exception handling.
 - support for arabic languages.
 - support for multiline.

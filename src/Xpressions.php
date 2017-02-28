@@ -57,7 +57,7 @@ class Xpressions
     /**
      * Match a given string.
      *
-     * @param  string|Callable $value
+     * @param  string|\Callable $value
      * @return $this
      */
     public function exact($value)
@@ -76,7 +76,7 @@ class Xpressions
     /**
      * Match an optional given string.
      *
-     * @param  string|Callable $value
+     * @param  string|\Callable $value
      * @return $this
      */
     public function maybe($value)
@@ -231,13 +231,7 @@ class Xpressions
      */
     public function oneOrMore(Callable $callback = null)
     {
-        if ($callback) {
-            return $this->group($callback)->append('+');
-        }
-
-        $this->append('+');
-
-        return $this;
+        return $this->quantify('+', $callback);
     }
 
     /**
@@ -248,13 +242,7 @@ class Xpressions
      */
     public function zeroOrMore(Callable $callback = null)
     {
-        if ($callback) {
-            return $this->group($callback)->append('*');
-        }
-
-        $this->append('*');
-
-        return $this;
+        return $this->quantify('*', $callback);
     }
 
     /**
@@ -266,17 +254,28 @@ class Xpressions
      */
     public function repeat($n, Callable $callback = null)
     {
+        return $this->quantify("{$n}", $callback);
+    }
+
+    /**
+     * Apply a quantifier to a callback of expressions group.
+     *
+     * @param  string $operator
+     * @param  \Callable $callback
+     * @return $this
+     */
+    public function quantify($operator, Callable $callback = null)
+    {
         if ($callback) {
-            $this->group($callback)->append("{$n}");
+            $this->group($callback)->append($operator);
 
             return $this;
         }
 
-        $this->append("{$n}");
+        $this->append($operator);
 
         return $this;
     }
-
     /**
      * Create a group of expressions, or append an open parenthesis.
      *
@@ -298,7 +297,7 @@ class Xpressions
     /**
      * Wrap a callback expressions.
      *
-     * @param  Callable $callback
+     * @param  \Callable $callback
      * @param  string   $open
      * @param  string   $close
      * @return string
