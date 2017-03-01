@@ -260,8 +260,7 @@ class XpressionsTest extends TestCase
                             ->oneOrMore();
                     })->word();
             }, function($xpr) {
-                $xpr->word()
-                    ->oneOrMore()
+                $xpr->words()
                     ->group(function($xpr) {
                         $xpr->exact('.')
                             ->word()
