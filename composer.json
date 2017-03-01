@@ -1,8 +1,19 @@
 {
     "name": "alshahawi/xpressions",
+    "type": "library",
     "description": "A fluent php api for regular expressions.",
+    "keywords": ["regular-expressions", "regex"],
+    "homepage": "https://github.com/AlShahawi/xpressions",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Ahmed Al-Shahawi",
+            "email": "alshahawi@outlook.com",
+            "role": "Developer"
+        }
+    ],
     "require": {
-        "php": "^5.6 || ^7.0"
+        "php": ">=5.6.0"
     },
     "require-dev": {
         "phpunit/phpunit": "^6.0"
@@ -13,3 +24,4 @@
        }
     }
 }
+
