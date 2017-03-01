@@ -121,6 +121,17 @@ class Xpressions
     }
 
     /**
+     * Matches a one or more of any word character (alphanumeric & underscore).
+     * Only matches low-ascii characters (no accented or non-roman characters).
+     *
+     * @return $this
+     */
+    public function words()
+    {
+        return $this->word()->oneOrMore();
+    }
+
+    /**
      * Matches any character that is not a word character (alphanumeric & underscore).
      *
      * @return $this
@@ -145,6 +156,16 @@ class Xpressions
     }
 
     /**
+     * Matches a one or more digits.
+     *
+     * @return $this
+     */
+    public function digits()
+    {
+        return $this->digit()->oneOrMore();
+    }
+
+    /**
      * Matches a non digit.
      *
      * @return $this
@@ -166,6 +187,16 @@ class Xpressions
         $this->append('\s');
 
         return $this;
+    }
+
+    /**
+     * Matches a one or more spaces.
+     *
+     * @return $this
+     */
+    public function spaces()
+    {
+        return $this->space()->oneOrMore();
     }
 
     /**
