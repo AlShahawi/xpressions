@@ -23,7 +23,7 @@ var_dump($matcher->test('foo')); // -> true
 ### Inline Matching
 In some situations (like validation) you might want to match something in the start of the line and before the end of that line, in that case you might use `begin()` and `end()` methods. For example:
 
-```
+```php
 $matcher = Xpressions::match()->begin()->exact('bar')->end();
 
 var_dump($matcher->test('foo bar')); // -> false
